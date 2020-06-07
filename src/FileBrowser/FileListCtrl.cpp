@@ -4,6 +4,7 @@
 #include "FileListCtrl.h"
 #include "Resource.h"
 #include "FileListView.h"
+#include <string>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -12,6 +13,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 #define NUM_ITEMS   40
+
+using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////
 // CFileListCtrl
@@ -207,7 +210,7 @@ void CFileListCtrl::OnNMClick(NMHDR* pNMHDR, LRESULT* pResult)
 	FileListData* data = reinterpret_cast<FileListData*>(ptr);
 	if (data->sysfileType == SYS_FILE_TYPE::FOLDER_TYPE) {
 		CString t = data->FilePatch + "\\" + data->FileName;
-		ReloadFileList(&t);
+		ReloadFileList(t);
 	}
 	if (data->sysfileType == SYS_FILE_TYPE::GOBACK_TYPE) {
 		CString t = data->FilePatch;
@@ -215,11 +218,11 @@ void CFileListCtrl::OnNMClick(NMHDR* pNMHDR, LRESULT* pResult)
 		int l = t.GetLength();
 		if (i > 0 && i+1 != l) {
 			CString strTemp = t.Left(i);
-			ReloadFileList(&strTemp);
+			ReloadFileList(strTemp);
 		}
 		else {
 			CString strTemp = _T("");
-			ReloadFileList(&strTemp);
+			ReloadFileList(strTemp);
 		}
 	}
 	*pResult = 0;
@@ -432,19 +435,20 @@ void CFileListCtrl::FindAllFiles(CString* FolderName)
 
 }
 
-int CFileListCtrl::ReloadFileList(CString* strDirectory)
+int CFileListCtrl::ReloadFileList(CString strDirectory)
 {
 	SetRedraw(FALSE);
 	DeleteAllFileListInfo();
 	auto parent = GetParent();
 	if (parent != NULL) {
-		CFileListView *fileFiew = reinterpret_cast<CFileListView*>(parent);
-		fileFiew->m_wndViewPatch.SetWindowText(strDirectory->GetBuffer());
+		CFileListView *fileFiew =(CFileListView*)(parent);
+		LPWSTR str = strDirectory.GetBuffer();
+		fileFiew->m_wndViewPatch.SetWindowTextW(str);
 	}
 	CurrentOrderType = ORDER_TYPE::ASC;
 	CurrentColumn = 0;
 
-	FindAllFiles(strDirectory);
+	FindAllFiles(&strDirectory);
 	SetRedraw(TRUE);
 	ResizeListCtrl();
 

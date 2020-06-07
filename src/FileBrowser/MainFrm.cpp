@@ -357,14 +357,14 @@ BOOL CMainFrame::PreTranslateMessage(MSG* pMsg)
 		pMsg->wParam == SELECT_SOURCE_DIRECTORY)
 	{
 		CString* directory = (CString*)pMsg->lParam;
-		m_wndFileListView.ReloadFileList(directory);
+		m_wndFileListView.ReloadFileList(*directory);
 	}
 
 	if (pMsg->message == WM_USER &&
 		pMsg->wParam == SELECT_TARGET_DIRECTORY)
 	{
 		CString* directory = (CString*)pMsg->lParam;
-		m_wndTargetFileListView.ReloadFileList(directory);
+		m_wndTargetFileListView.ReloadFileList(*directory);
 	}
 
 

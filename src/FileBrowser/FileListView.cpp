@@ -216,7 +216,7 @@ void CFileListView::OnChangeVisualStyle()
 }
 
 
-void CFileListView::ReloadFileList(CString* strDirectory)
+void CFileListView::ReloadFileList(CString strDirectory)
 {
 	m_ListCtrl.ReloadFileList(strDirectory);
 

@@ -57,7 +57,7 @@ public:
 	static int CALLBACK SortFuncASC(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
 	static int CALLBACK SortFuncDESC(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
 	afx_msg void OnNMClick(NMHDR* pNMHDR, LRESULT* pResult);
-	int ReloadFileList(CString* strDirectory);
+	int ReloadFileList(CString strDirectory);
 	void DeleteAllFileListInfo();
 	int FillDrive();
 	void Sort(ORDER_TYPE order, int column_id);

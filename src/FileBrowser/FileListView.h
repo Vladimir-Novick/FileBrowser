@@ -46,7 +46,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	void ReloadFileList(CString* strDirectory);
+	void ReloadFileList(CString strDirectory);
 
 	afx_msg void OnShowDetails();
 	afx_msg void OnShowAsList();
